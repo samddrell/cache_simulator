@@ -21,12 +21,23 @@ class Entry {
   private:  
     bool valid;
     unsigned tag;
+
+    // Do we need this for this assignment?
     int ref;
 };
 
 class Cache {
   public:
-    Cache(int, int);
+    Cache(int, int) {
+        assoc = assoc_in;
+        num_entries = num_entries_in;
+        num_sets = num_entries / assoc;
+
+        entries.resize(num_sets);
+        for (int i = 0; i < num_sets; i++) {
+            entries[i].resize(assoc);
+        }
+    }
     ~Cache();
 
     bool check_address(unsigned long addr);

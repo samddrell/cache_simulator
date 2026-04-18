@@ -4,7 +4,9 @@
 
 using namespace std;
 
-ifstream fileio(string filename) {
+const int MAX_SIZE = 1000;
+
+void fileio(string filename) {
   /* create input and output filenames */
   string input_filename = filename + "_input";
   string output_filename = filename + "_output";
@@ -43,8 +45,6 @@ ifstream fileio(string filename) {
 
   /* close output stream */
   output.close();
-  return 0;
-
 }
 
 int main(int argc, char*argv[]) {
@@ -66,7 +66,9 @@ int main(int argc, char*argv[]) {
     cout << "Number of entries: " << entries << endl;
     cout << "Associativity: " << assoc << endl;
     cout << "Input File Name: " << input_filename << endl;
-    
+
+    fileio(input_filename);
+
     
     return 0;
 }

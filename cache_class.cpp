@@ -3,11 +3,24 @@
 
 using namespace std;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 class Entry {
   public:
-    Entry();
+    Entry(int in_ref) {
+      set_ref(in_ref);
+      valid = true;
+    }
+
     ~Entry();
     void display(ofstream& outfile);
+
+  private:  
+    bool valid;
+
+    // Do we need this for this assignment?
+    unsigned tag;
+
+    int ref;
 
     void set_tag(int _tag) { tag = _tag; }
     int get_tag() { return tag; }
@@ -17,15 +30,9 @@ class Entry {
 
     void set_ref(int _ref) { ref = _ref; }
     int get_ref() { return ref; }
-
-  private:  
-    bool valid;
-    unsigned tag;
-
-    // Do we need this for this assignment?
-    int ref;
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 class Cache {
   public:
     Cache(int, int) {

@@ -12,7 +12,7 @@ vector<unsigned long> fileio(string filename) {
     /* create input and output filenames */
     //   string input_filename = filename + "_input";
     string input_filename = filename;
-    string output_filename = "cache_sim_outpu";
+    string output_filename = "cache_sim_output";
 
     /* create input and output files streams */
     ofstream output;

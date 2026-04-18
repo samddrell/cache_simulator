@@ -78,9 +78,9 @@ int main(int argc, char*argv[]) {
 
     for (unsigned long addr : nums) {
         if (cache.check_address(addr)) {
-            cout << "Cache hit for address: " << addr << endl;
+            cout << addr << " : HIT" << endl;
         } else {
-            cout << "Cache miss for address: " << addr << endl;
+            cout << addr << " : MISS" << endl;
         }
     }
     

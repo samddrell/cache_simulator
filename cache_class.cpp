@@ -35,7 +35,7 @@ class Entry {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 class Cache {
   public:
-    Cache(int, int) {
+    Cache(int assoc_in, int num_entries_in) {
         assoc = assoc_in;
         num_entries = num_entries_in;
         num_sets = num_entries / assoc;

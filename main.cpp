@@ -6,7 +6,7 @@ using namespace std;
 
 const int MAX_SIZE = 1000;
 
-void fileio(string filename) {
+unsigned long* fileio(string filename) {
     /* create input and output filenames */
     //   string input_filename = filename + "_input";
     string input_filename = filename;
@@ -46,6 +46,7 @@ void fileio(string filename) {
 
     /* close output stream */
     output.close();
+    return nums;
 }
 
 int main(int argc, char*argv[]) {
@@ -68,7 +69,9 @@ int main(int argc, char*argv[]) {
     cout << "Associativity: " << assoc << endl;
     cout << "Input File Name: " << input_filename << endl;
 
-    fileio(input_filename);
+    Cache cache(assoc, entries);
+
+    unsigned long* nums = fileio(input_filename);
 
     
     return 0;

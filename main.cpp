@@ -10,7 +10,7 @@ void fileio(string filename) {
     /* create input and output filenames */
     //   string input_filename = filename + "_input";
     string input_filename = filename;
-    string output_filename = filename + "_output";
+    string output_filename = "cache_sim_outpu";
 
     /* create input and output files streams */
     ofstream output;

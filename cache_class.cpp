@@ -7,13 +7,19 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 class Entry {
   public:
+    Entry() {
+      valid = false;
+    }
+
     Entry(int in_ref) {
       set_ref(in_ref);
       valid = true;
     }
 
-    ~Entry();
+    ~Entry(){}
     void display(ofstream& outfile);
+    bool get_valid() { return valid; }
+    int get_tag() { return tag; }
 
   private:  
     bool valid;
@@ -24,10 +30,9 @@ class Entry {
     int ref;
 
     void set_tag(int _tag) { tag = _tag; }
-    int get_tag() { return tag; }
+    
 
     void set_valid(bool _valid) { valid = _valid; }
-    bool get_valid() { return valid; }
 
     void set_ref(int _ref) { ref = _ref; }
     int get_ref() { return ref; }
@@ -47,7 +52,7 @@ class Cache {
         }
     }
 
-    ~Cache();
+    ~Cache(){}
 
     bool check_address(unsigned long addr) {
       // Calculate index based on the address and number of sets

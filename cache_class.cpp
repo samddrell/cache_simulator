@@ -38,9 +38,30 @@ class Cache {
             entries[i].resize(assoc);
         }
     }
+
     ~Cache();
 
-    bool check_address(unsigned long addr);
+    bool check_address(unsigned long addr) {
+      // Calculate index based on the address and number of sets
+      int index = addr % num_sets;
+
+      // Calculate tag based on the address and number of sets
+      int tag = addr / num_sets;
+
+      for (int way = 0; way < assoc; ++way) {
+        if (entries[index][way].get_valid() && entries[index][way].get_tag() == tag) {
+            return true;  // Hit
+        }
+        else {
+          // Add entry
+
+          // Find Empty way
+          
+          // Else overwrite 
+        }
+      }
+      return false; // Cache miss
+    }
     
   private:
     int assoc;
@@ -48,19 +69,19 @@ class Cache {
     int num_sets;
     vector<vector<Entry>> entries;
 
-    // Do we need this?
-    void display(ofstream& outfile);
+    // // Do we need this?
+    // void display(ofstream& outfile);
 
-    // Do we need this?
-    int get_index(unsigned long addr);
+    // // Do we need this?
+    // int get_index(unsigned long addr);
 
-    int get_tag(unsigned long addr);
+    // int get_tag(unsigned long addr);
 
-    unsigned long retrieve_addr(int way, int index);
+    // unsigned long retrieve_addr(int way, int index);
     
-    bool hit(ofstream& outfile, unsigned long addr);
+    // bool hit(ofstream& outfile, unsigned long addr);
 
-    void update(ofstream& outfile, unsigned long addt);
+    // void update(ofstream& outfile, unsigned long addt);
 
 };
 

@@ -10,16 +10,21 @@ class Entry {
     Entry() {
       valid = false;
     }
-
     Entry(int in_ref) {
       set_ref(in_ref);
       valid = true;
     }
-
     ~Entry(){}
+
     void display(ofstream& outfile);
     bool get_valid() { return valid; }
     int get_tag() { return tag; }
+
+    void set_tag(int _tag) { tag = _tag; }
+    void set_valid(bool _valid) { valid = _valid; }
+
+    void set_ref(int _ref) { ref = _ref; }
+    int get_ref() { return ref; }
 
   private:  
     bool valid;
@@ -29,13 +34,6 @@ class Entry {
 
     int ref;
 
-    void set_tag(int _tag) { tag = _tag; }
-    
-
-    void set_valid(bool _valid) { valid = _valid; }
-
-    void set_ref(int _ref) { ref = _ref; }
-    int get_ref() { return ref; }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +48,8 @@ class Cache {
         for (int i = 0; i < num_sets; i++) {
             entries[i].resize(assoc);
         }
+
+        clock = 0;
     }
 
     ~Cache(){}
@@ -63,14 +63,8 @@ class Cache {
 
       for (int way = 0; way < assoc; ++way) {
         if (entries[index][way].get_valid() && entries[index][way].get_tag() == tag) {
-            return true;  // Hit
-        }
-        else {
-          // Add entry
-
-          // Find Empty way
-          
-          // Else overwrite 
+          entries[index][way].set_ref(clock++);
+          return true;  // Hit
         }
       }
       return false; // Cache miss
@@ -81,6 +75,7 @@ class Cache {
     unsigned num_entries;
     int num_sets;
     vector<vector<Entry>> entries;
+    int clock; // for LRU replacement policy
 
     // // Do we need this?
     // void display(ofstream& outfile);

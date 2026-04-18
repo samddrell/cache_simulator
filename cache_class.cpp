@@ -46,7 +46,7 @@ private:
   int assoc;
   unsigned num_entries;
   int num_sets;
-  Entry **entries;
+  vector<vector<Entry>> entries;
 };
 
 

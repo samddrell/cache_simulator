@@ -2,6 +2,7 @@
 #include<cstdlib>   // for atoi
 #include<fstream>  // need this for file I/O
 #include<vector>
+#include "cache_class.cpp"
 
 using namespace std;
 

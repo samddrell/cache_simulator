@@ -1,12 +1,13 @@
 #include<iostream>
 #include<cstdlib>   // for atoi
 #include<fstream>  // need this for file I/O
+#include<vector>
 
 using namespace std;
 
 const int MAX_SIZE = 1000;
 
-unsigned long* fileio(string filename) {
+vector<unsigned long> fileio(string filename) {
     /* create input and output filenames */
     //   string input_filename = filename + "_input";
     string input_filename = filename;
@@ -26,10 +27,11 @@ unsigned long* fileio(string filename) {
         exit(0);
     }
         
-    unsigned long *nums = new unsigned long[MAX_SIZE];
+    vector<unsigned long> nums;
+    unsigned long val;
     int count = 0;
-    while (!input.eof() && count < MAX_SIZE) {
-        input >> nums[count];
+    while (input >> val && count < MAX_SIZE) {
+        nums.push_back(val);
         count++;
     }
 
@@ -69,10 +71,17 @@ int main(int argc, char*argv[]) {
     cout << "Associativity: " << assoc << endl;
     cout << "Input File Name: " << input_filename << endl;
 
+    vector<unsigned long> nums = fileio(input_filename);
+
     Cache cache(assoc, entries);
 
-    unsigned long* nums = fileio(input_filename);
-
+    for (unsigned long addr : nums) {
+        if (cache.check_address(addr)) {
+            cout << "Cache hit for address: " << addr << endl;
+        } else {
+            cout << "Cache miss for address: " << addr << endl;
+        }
+    }
     
     return 0;
 }

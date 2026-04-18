@@ -61,12 +61,41 @@ class Cache {
       // Calculate tag based on the address and number of sets
       int tag = addr / num_sets;
 
+      // Check for hit in the cache
       for (int way = 0; way < assoc; ++way) {
         if (entries[index][way].get_valid() && entries[index][way].get_tag() == tag) {
           entries[index][way].set_ref(clock++);
           return true;  // Hit
         }
       }
+      
+      // If miss, find an empty slot
+      for (int way = 0; way < assoc; ++way) {
+        if (!entries[index][way].get_valid()) {
+          entries[index][way].set_valid(true);
+          entries[index][way].set_tag(tag);
+          entries[index][way].set_ref(clock++);
+          
+          return false; // Miss
+        }
+      }
+
+      // LRU replacement: find the way with the smallest reference time
+
+      int lru_way = 0;
+      int min_ref = entries[index][0].get_ref();
+
+      for (int way = 1; way < assoc; ++way) {
+        if (entries[index][way].get_ref() < min_ref) {
+          min_ref = entries[index][way].get_ref();
+          lru_way = way;
+        }
+      }
+
+      entries[index][lru_way].set_valid(true);
+      entries[index][lru_way].set_tag(tag);
+      entries[index][lru_way].set_ref(clock++);
+
       return false; // Cache miss
     }
     
